@@ -1,22 +1,25 @@
 # Tinychef
 
-TODO: Write a gem description
+Collection of scripts to manage recipes with Chef Solo easily.
 
 ## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'tinychef'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
 
     $ gem install tinychef
 
 ## Usage
+
+To create a tinychef compatible directory:
+
+    $ tinychef new [dirname]
+
+This will create a new *dirname* folder with the following structure:
+
+    ├── cookbooks
+    ├── data_bags
+    ├── imported_cookbooks
+    ├── nodes
+    ├── roles
+    └── vendor
 
 TODO: Write usage instructions here
 

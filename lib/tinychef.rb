@@ -1,5 +1,6 @@
 require "tinychef/version"
 
 module Tinychef
-  # Your code goes here...
 end
+
+require 'tinychef/node_run'

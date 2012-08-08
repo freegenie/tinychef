@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'optparse'
-
 $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
+
+require 'optparse'
+require 'tinychef'
 
 parser = OptionParser.new do |opts|
   opts.banner = "Usage: tinychef COMMAND [ARGS]"
@@ -28,15 +29,30 @@ parser = OptionParser.new do |opts|
   opts.separator "  unsecure                  Unlock key and decrypt all data bags" 
   opts.separator "  run HOST NODE [RUN_LIST]  Runs recipes for NODE on HOST with optional run_list"
   opts.separator ""
+
 end
 
 parser.parse!
 
-case ARGV[0]
-when 'new'
-  Tinychef::NewDirectory.new(ARGV[1]).write
-when 'run'
-  Tinychef::NodeRun.new(ARGV[1], ARGV[2], ARGV[3]).apply
-else
-  puts parser.help
+begin
+  case ARGV[0]
+  when 'new'
+    Tinychef::NewDirectory.new(ARGV[1]).write
+  when 'boot'
+  when 'bag:create'
+  when 'bag:encrypt'
+  when 'bag:decrypt'
+  when 'key:lock'
+  when 'key:unlock'
+  when 'secure'
+  when 'unsecure'
+  when 'run'
+    Tinychef::NodeRun.new(ARGV[1], ARGV[2], ARGV[3]).apply
+  else
+    puts parser.help
+  end
+rescue Tinychef::NodeRun::OptionsError => e
+  abort e.message
+
+
 end
