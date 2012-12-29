@@ -1,5 +1,6 @@
 require 'tinychef/node'
 require 'tinychef/destination'
+require 'tinychef/new_directory'
 
 module Tinychef
   class NodeRun

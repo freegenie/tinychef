@@ -37,7 +37,7 @@ parser.parse!
 begin
   case ARGV[0]
   when 'new'
-    Tinychef::NewDirectory.new(ARGV[1]).write
+    Tinychef::NewDirectory.new(ARGV[1]).create
   when 'boot'
   when 'bag:create'
   when 'bag:encrypt'
