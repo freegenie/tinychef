@@ -5,10 +5,7 @@ require 'tinychef/new_directory'
 module Tinychef
   class NodeRun
 
-    class OptionsError < Exception
-      def initialize
-        super <<-EOH
-
+    OPTIONS_ERROR = <<-EOH
 Required arguments:
 
   NODE:     node file to execute
@@ -16,11 +13,9 @@ Required arguments:
             If missing, this is guessed by the node file name.
   RUN_LIST: an optional RUN_LIST to be passed to chef-solo executable.
 
-        EOH
-      end
-    end
+EOH
 
-    RECIPES_DIR="recipes"
+    RECIPES_DIR = "recipes"
 
     attr_reader :dest, :node, :run_list, :run_list_command
 
@@ -37,8 +32,7 @@ Required arguments:
       prepare_run_list_command
 
     rescue => e
-      puts e.inspect
-      raise OptionsError
+      raise OptionsError.new NodeRun::OPTIONS_ERROR
     end
 
     def start

@@ -37,8 +37,11 @@ parser.parse!
 begin
   case ARGV[0]
   when 'new'
-    Tinychef::NewDirectory.new(ARGV[1]).create
+    dir_name = ARGV[1]
+    Tinychef::NewDirectory.new(dir_name).create
   when 'boot'
+    dest = ARGV[1] ; script = ARGV[2]
+    Tinychef::BootScript.new(dest, script).run
   when 'bag:create'
   when 'bag:encrypt'
   when 'bag:decrypt'
@@ -61,8 +64,6 @@ begin
   else
     puts parser.help
   end
-rescue Tinychef::NodeRun::OptionsError => e
+rescue Tinychef::OptionsError => e
   abort e.message
-
-
 end
