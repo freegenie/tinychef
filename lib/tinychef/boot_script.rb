@@ -17,13 +17,17 @@ EOH
     
     attr_reader :dest, :script
     
-    def initialize(dest, script='boot.sh') 
-      @dest = Tinychef::Destination.new(dest)
-      @script = Pathname.new(script)
-      file_check
+    def initialize(dest, script)
+      script ||= 'boot.sh'
+
+      begin
+        @dest = Tinychef::Destination.new(dest)
+        @script = Pathname.new(script)
+      rescue => e
+        raise OptionsError.new BootScript::OPTIONS_ERROR
+      end
       
-    rescue => e
-      raise OptionsError.new BootScript::OPTIONS_ERROR
+      file_check
     end
     
     def run
@@ -35,10 +39,10 @@ EOH
     
     def file_check
       unless script.exist? 
-        raise "File #{script} not found. Craft your boot script, something like this: https://gist.github.com/3153784"
+        raise RuntimeError.new "File #{script} not found. Craft your boot script, something like this: https://gist.github.com/3153784"
       end
       unless script.extname == '.sh'
-        raise "File must be a shell script (.sh extension please)"
+        raise RuntimeError.new "File must be a shell script (.sh extension please)"
       end
     end
     

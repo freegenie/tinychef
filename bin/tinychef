@@ -64,6 +64,6 @@ begin
   else
     puts parser.help
   end
-rescue Tinychef::OptionsError => e
+rescue Tinychef::OptionsError, RuntimeError => e
   abort e.message
 end
