@@ -47,7 +47,17 @@ begin
   when 'secure'
   when 'unsecure'
   when 'run'
-    Tinychef::NodeRun.new(ARGV[1], ARGV[2], ARGV[3]).apply
+    options = {}
+
+    options[:node] = ARGV[1]
+
+    if ARGV.size == 3 # assume the destination is not given
+      options[:dest] = nil ; options[:run_list] = ARGV[2]
+    else
+      options[:dest] = ARGV[2] ; options[:run_list] = ARGV[3]
+    end
+
+    Tinychef::NodeRun.new(options).start
   else
     puts parser.help
   end

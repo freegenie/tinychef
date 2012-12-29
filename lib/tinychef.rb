@@ -1,6 +1,5 @@
 require "tinychef/version"
 
-module Tinychef
-end
+module Tinychef; end
 
 require 'tinychef/node_run'
