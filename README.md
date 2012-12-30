@@ -1,6 +1,14 @@
 # Tinychef
 
-Collection of scripts to manage recipes with Chef Solo easily.
+This is a simple tool to manage Chef Solo recipe without having to deal with
+`knife` command line tool. Tinychef is basically few lines of Ruby code
+wrapping shell scripts I used to run my chef recipes.
+
+It aims to be just enough to: 
+
+* automate node boostrapping just a little bit
+* run recipes on nodes, overriding the run list if necessary 
+* make it easy to work with encrypted data bags
 
 ## Installation
 
@@ -20,8 +28,22 @@ This will create a new *dirname* folder with the following structure:
     ├── nodes
     ├── roles
     └── vendor
+    └── solo.rb
 
-TODO: Write usage instructions here
+
+### Run a node
+
+  $ tinychef run username@mynode.example.org 
+
+This command will look for a `mynode.example.org.json` file in nodes folder
+and execute the run list on that. Alternatively you can run: 
+
+  $ tinychef run nodes/another\_node.json username@mynode.example.org 
+
+If you want to override the run list defined in the node file, append a
+run list sequence: 
+
+  $ tinychef run nodes/another\_node.json username@mynode.example.org "recipe\[mybook::myrecipe]"
 
 ## Contributing
 
