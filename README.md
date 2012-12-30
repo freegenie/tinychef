@@ -38,12 +38,12 @@ This will create a new *dirname* folder with the following structure:
 This command will look for a `mynode.example.org.json` file in nodes folder
 and execute the run list on that. Alternatively you can run: 
 
-    $ tinychef run nodes/another\_node.json username@mynode.example.org 
+    $ tinychef run nodes/another_node.json username@mynode.example.org 
 
 If you want to override the run list defined in the node file, append a
 run list sequence: 
 
-    $ tinychef run nodes/another\_node.json username@mynode.example.org "recipe\[mybook::myrecipe]"
+    $ tinychef run nodes/another_node.json username@mynode.example.org "recipe[mybook::myrecipe]"
 
 ## Contributing
 
