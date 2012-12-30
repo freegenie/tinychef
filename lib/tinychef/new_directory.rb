@@ -1,4 +1,5 @@
 require 'pathname'
+require 'fileutils'
 
 module Tinychef
   class NewDirectory
@@ -24,6 +25,13 @@ module Tinychef
       DIR_MAP.each do |key, value|
         path.join(key).mkpath
       end
+
+      copy_solo_file
+    end
+
+    def copy_solo_file
+      solo_file = Pathname.new(File.join(File.expand_path('../../../files', __FILE__), 'solo.rb'))
+      FileUtils.cp solo_file, path.join('solo.rb')
     end
   end
 end
