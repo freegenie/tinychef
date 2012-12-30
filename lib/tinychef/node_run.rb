@@ -58,7 +58,7 @@ EOH
 
       system %Q{ rsync -rvcL --exclude .git --exclude vendor/* --exclude *.swp --exclude *.swo .  #{dest}:#{RECIPES_DIR} }
       system %Q{ ssh -t #{dest} "sudo mkdir -p /etc/chef " }
-      system %Q{ ssh -t #{dest} "sudo cp #{RECIPES_DIR}/data_bags/secret.key /etc/chef/encrypted_data_bag_secret" }
+      system %Q{ ssh -t #{dest} "sudo cp #{RECIPES_DIR}/secret.key /etc/chef/encrypted_data_bag_secret" }
     end
 
     def run_code
