@@ -43,6 +43,9 @@ begin
     dest = ARGV[1] ; script = ARGV[2]
     Tinychef::BootScript.new(dest, script).run
   when 'bag:create'
+    recipe = ARGV[1]
+    name = ARGV[2]
+    Tinychef::DataBag.new(recipe, name).create
   when 'bag:encrypt'
   when 'bag:decrypt'
   when 'key:lock'
