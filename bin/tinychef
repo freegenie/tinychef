@@ -4,6 +4,7 @@ $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
 
 require 'optparse'
 require 'tinychef'
+require 'tinychef/commands'
 
 parser = OptionParser.new do |opts|
   opts.banner = "Usage: tinychef COMMAND [ARGS]"
@@ -23,6 +24,7 @@ parser = OptionParser.new do |opts|
   opts.separator "  bag:create NAME           Creates an empty databag" 
   opts.separator "  bag:encrypt NAME          Encrypts a databag" 
   opts.separator "  bag:decrypt NAME          Decrypts a databag" 
+  opts.separator "  key:generate              Generate a new random key"
   opts.separator "  key:lock                  Lock the key with a password"
   opts.separator "  key:unlock                Unlock the key for a work session" 
   opts.separator "  secure                    Remove all unsecure files from this folder" 
@@ -34,36 +36,21 @@ end
 
 parser.parse!
 
+include Tinychef::Commands
+
 begin
   case ARGV[0]
-  when 'new'
-    dir_name = ARGV[1]
-    Tinychef::NewDirectory.new(dir_name).create
-  when 'boot'
-    dest = ARGV[1] ; script = ARGV[2]
-    Tinychef::BootScript.new(dest, script).run
-  when 'bag:create'
-    recipe = ARGV[1]
-    name = ARGV[2]
-    Tinychef::DataBag.new(recipe, name).create
-  when 'bag:encrypt'
-  when 'bag:decrypt'
-  when 'key:lock'
-  when 'key:unlock'
-  when 'secure'
-  when 'unsecure'
-  when 'run'
-    options = {}
-
-    options[:node] = ARGV[1]
-
-    if ARGV.size == 3 # assume the destination is not given
-      options[:dest] = nil ; options[:run_list] = ARGV[2]
-    else
-      options[:dest] = ARGV[2] ; options[:run_list] = ARGV[3]
-    end
-
-    Tinychef::NodeRun.new(options).start
+  when 'new' then new_command
+  when 'boot' then boot_command
+  when 'bag:create' then bag_create_command
+  when 'bag:encrypt' then bag_encrypt_command
+  when 'bag:decrypt' then bag_decrypt_command
+  when 'key:generate' then key_generate_command
+  when 'key:lock' then key_lock_command
+  when 'key:unlock' then key_unlock_command
+  when 'secure' then secure_command
+  when 'unsecure' then unsecure_command
+  when 'run' then run_command
   else
     puts parser.help
   end
